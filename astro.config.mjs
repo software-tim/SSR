@@ -7,7 +7,8 @@ export default defineConfig({
   
   // Add Node.js adapter in standalone mode
   adapter: node({
-    mode: 'standalone'
+    mode: 'standalone',
+    port: process.env.PORT || 3000
   }),
   
   // Configure server settings
