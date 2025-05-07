@@ -4,34 +4,30 @@ import node from '@astrojs/node';
 export default defineConfig({
   // Configure Astro for SSR
   output: 'server',
-  
-  // Add Node.js adapter in standalone mode
+
+  // Add Node.js adapter in standalone mode (⚠️ removed unsupported `port` option)
   adapter: node({
-    mode: 'standalone',
-    port: process.env.PORT || 3000
+    mode: 'standalone'
   }),
-  
+
   // Configure server settings
   server: {
-    // Use PORT environment variable or default to 8080
+    // Azure injects PORT as an env var (e.g. 8080)
     port: process.env.PORT || 8080,
-    // Listen on all network interfaces
     host: '0.0.0.0'
   },
-  
+
   // Site configuration
-  site: 'https://ssr.azurewebsites.net', // Replace with your actual URL
-  
+  site: 'https://ssr.azurewebsites.net',
+
   // Build configuration
   build: {
     format: 'file',
-    // Ensure client assets are properly referenced
     assets: '_astro'
   },
-  
-  // Development configuration
+
+  // Vite configuration
   vite: {
-    // Handle any Vite warnings about null byte characters
     build: {
       rollupOptions: {
         onwarn(warning, warn) {
@@ -40,7 +36,6 @@ export default defineConfig({
         }
       }
     },
-    // Optimize for Node.js environment
     ssr: {
       noExternal: []
     }
