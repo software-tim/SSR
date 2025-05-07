@@ -1,16 +1,46 @@
 ---
-
+// Server-side code
+const serverTime = new Date().toLocaleTimeString();
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Hello World (SSR)</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hello World!</h1>
+      <p>This is a server-side rendered Astro site.</p>
+      <p>Current server time: {serverTime}</p>
+    </div>
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f5f5f5;
+      }
+      
+      .container {
+        text-align: center;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #4f46e5;
+        font-size: 3rem;
+      }
+    </style>
+  </body>
 </html>
