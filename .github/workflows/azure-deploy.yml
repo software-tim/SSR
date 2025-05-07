@@ -32,7 +32,8 @@ jobs:
       run: |
         mkdir deploy
         cp -r dist/* deploy/
-        cp package.json deploy/
+        cp -a dist/. deploy/              # Copy Astro output (server + client)
+        cp package.json deploy/           # Needed for npm start
         if [ -f startup.sh ]; then cp startup.sh deploy/; fi
 
     - name: Login to Azure
