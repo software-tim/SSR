@@ -1,0 +1,47 @@
+name: Deploy Astro SSR to Azure Web App
+
+on:
+  push:
+    branches: [ main ]  # Deploy when pushing to main
+  workflow_dispatch:     # Allow manual deploys
+
+env:
+  AZURE_WEBAPP_NAME: SSR  # Replace with your Azure Web App name
+  NODE_VERSION: '20.x'    # Node.js version used for build
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies and build Astro SSR
+      run: |
+        npm ci
+        npm run build
+
+    - name: Prepare deployment package
+      run: |
+        mkdir deploy
+        cp -r dist/* deploy/
+        cp package.json deploy/
+        if [ -f startup.sh ]; then cp startup.sh deploy/; fi
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: deploy
