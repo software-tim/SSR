@@ -1,8 +1,8 @@
 import { r as renderers } from './chunks/internal_BsTt5pTQ.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_BSrPmmzb.mjs';
-import { manifest } from './manifest_yj5tTWtn.mjs';
+import { manifest } from './manifest_DqvL5Voy.mjs';
 
-const serverIslandMap = new Map();
+const serverIslandMap = new Map();;
 
 const _page0 = () => import('./pages/_image.astro.mjs');
 const _page1 = () => import('./pages/index.astro.mjs');
@@ -18,7 +18,6 @@ const _manifest = Object.assign(manifest, {
     actions: () => import('./_noop-actions.mjs'),
     middleware: () => import('./_noop-middleware.mjs')
 });
-
 const _args = {
     "mode": "standalone",
     "client": "file:///C:/Users/TimSi/VS_Code_Folder/SSR/hello-world-ssr/dist/client/",
@@ -27,19 +26,13 @@ const _args = {
     "port": 8080,
     "assets": "_astro"
 };
-
 const _exports = createExports(_manifest, _args);
 const handler = _exports['handler'];
 const startServer = _exports['startServer'];
 const options = _exports['options'];
-
 const _start = 'start';
 if (_start in serverEntrypointModule) {
-    serverEntrypointModule[_start](_manifest, _args);
+	serverEntrypointModule[_start](_manifest, _args);
 }
 
-// ✅ Quick fix: explicitly start the server
-startServer({ port: process.env.PORT || 8080 });
-
 export { handler, options, pageMap, startServer };
-
