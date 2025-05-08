@@ -44,5 +44,6 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        ppackage: .
+        app-name:  SSR         
+        slot-name: production
+        package: .
